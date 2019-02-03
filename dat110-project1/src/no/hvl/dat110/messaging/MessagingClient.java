@@ -23,6 +23,13 @@ public class MessagingClient {
 		// TODO
 		// create TCP socket for client and connection
 
+		try {
+			clientSocket = new Socket(server, port);			
+			connection = new Connection(clientSocket);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		if (true) {
 			throw new RuntimeException("not yet implemented");
 		}

@@ -1,4 +1,4 @@
-package no.hvl.dat110.rpc;
+ package no.hvl.dat110.rpc;
 
 import java.util.Arrays;
 
