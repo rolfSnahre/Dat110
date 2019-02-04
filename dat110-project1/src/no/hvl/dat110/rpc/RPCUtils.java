@@ -1,6 +1,8 @@
  package no.hvl.dat110.rpc;
 
 import java.util.Arrays;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 
 public class RPCUtils {
 
@@ -9,11 +11,16 @@ public class RPCUtils {
 		byte[] encoded;
 
 		// TODO: marshall RPC identifier and string into byte array
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		
+		encoded = new byte[str.length()+1];
+		encoded[0] = rpcid;
+		
+		
+		for (int i = 0; i < str.length(); i++) {
+			encoded[i+1] = (byte) str.charAt(i);
 		}
 
+	
 		return encoded;
 	}
 
@@ -22,10 +29,13 @@ public class RPCUtils {
 		String decoded;
 
 		// TODO: unmarshall String contained in data into decoded
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		
+		decoded = "";
+		for (int i = 1; i < data.length; i++) {
+			decoded += (char) data[i];
 		}
+
+		
 
 		return decoded;
 	}
@@ -35,10 +45,10 @@ public class RPCUtils {
 		byte[] encoded;
 
 		// TODO: marshall RPC identifier in case of void type
+		
+		encoded = new byte[1];
+		encoded[0] = rpcid;
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
 
 		return encoded;
 
@@ -47,6 +57,8 @@ public class RPCUtils {
 	public static void unmarshallVoid(byte[] data) {
 
 		// TODO: unmarshall void type
+		
+		return;
 	}
 
 	public static byte[] marshallBoolean(byte rpcid, boolean b) {
@@ -76,9 +88,35 @@ public class RPCUtils {
 
 		// TODO: marshall RPC identifier and string into byte array
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+
+		byte[] xByte = new byte[] {
+				(byte)((x >> 24) & 0xff),
+		        (byte)((x >> 16) & 0xff),
+		        (byte)((x >> 8) & 0xff),
+		        (byte)((x>> 0) & 0xff),
+		};
+		
+		
+				/**
+		BigInteger bigInt = BigInteger.valueOf(x);
+		byte[] xByte  = bigInt.toByteArray();
+		*/
+		/**
+		ByteBuffer bb = ByteBuffer.allocate(4);
+		bb.putInt(x);
+		byte[] xByte  = bb.array();
+		*/
+		
+		encoded = new byte[xByte.length+1];
+		encoded[0] = rpcid;
+		
+		for(int i = 0; i < xByte.length; i++) {
+			encoded[i+1] = xByte[i];
 		}
+		
+		encoded = new byte[2];
+		encoded[0] = rpcid;
+		encoded[1] = (byte) x;
 
 		return encoded;
 	}
@@ -87,11 +125,17 @@ public class RPCUtils {
 
 		int decoded;
 
-		// TODO: unmarshall integer contained in data
-
-		if (true) {
-			throw new RuntimeException("not yet implemented");
+		ByteBuffer bb = ByteBuffer.allocate(4);
+		byte[] values = new byte [data.length - 1];
+		for(int i = 0; i < values.length; i ++) {
+			values[i] = data[i+1];
 		}
+		
+		bb.wrap(values);
+		
+		decoded = bb.getInt();
+		
+		decoded = (int) values[0]; 
 
 		return decoded;
 
