@@ -38,9 +38,7 @@ public class MessagingServer {
 			// TODO: handle exception
 		}
 
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+
 
 		return connection;
 

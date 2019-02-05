@@ -35,7 +35,6 @@ public class Message {
 			encoded[i+1] = payload[i];
 		}
 		
-		
 		return encoded;
 		
 	}

@@ -30,9 +30,7 @@ public class MessagingClient {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		if (true) {
-			throw new RuntimeException("not yet implemented");
-		}
+		
 
 		return connection;
 	}
